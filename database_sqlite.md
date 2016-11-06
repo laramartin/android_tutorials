@@ -6,6 +6,7 @@
 ## Create a Contract class
 - To define the database schema
 - To declare the database name and version, tables and columns names
+- In this example, the contract class is called `StockContract`
 
 ```
 public class StockContract {
@@ -34,8 +35,15 @@ public class StockContract {
 ```
 
 ## Create the database with the SQL Helper
+- DB Helper generates CRUD statements
+- CRUD: create, read, update and delete actions
 - Database versions start from 1
 
+1. Create
+- Create a DbHelper class that extends SQLiteOpenHelper. In this example it is called `InventoryDbHelper`
+- Declare the database name and the version number
+- Create a constructor
+- Override the two mandatory methods that the DbHelper needs: `onCreate` and `onUpgrade`
 
 ```
 public class InventoryDbHelper extends SQLiteOpenHelper {
@@ -55,7 +63,111 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+      //TODO
+    }
+}
+```
 
+- Add a method to insert items to database, e.g. `insertItem()`
+- In this example, `insertItem()` method accepts one parameter, which is a custom class called `StockItem`
+
+The `StockItem` class looks like:
+```
+public class StockItem {
+
+    private final String productName;
+    private final String price;
+    private final int quantity;
+    private final String supplierName;
+    private final String supplierPhone;
+    private final String supplierEmail;
+    private final String image;
+
+    // constructor
+
+    // getters and setters
+}
+```
+
+- In `InventoryDbHelper` add the `insertItem` method.  
+- Get writable database
+- Create ContentValues where to add key-value pairs
+- insert always returns the inserted row ID or -1 if error
+
+```
+public class InventoryDbHelper extends SQLiteOpenHelper {
+
+    // DbHelper previous code
+
+    public void insertItem(StockItem item) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(StockContract.StockEntry.COLUMN_NAME, item.getProductName());
+        values.put(StockContract.StockEntry.COLUMN_PRICE, item.getPrice());
+        long id = db.insert(StockContract.StockEntry.TABLE_NAME, null, values);
+    }
+}
+```
+
+2. Read
+- In `InventoryDbHelper` add the read method
+- It returns a cursor
+
+First define a method that read the whole table and returns a cursor that contains all the items:
+
+```
+public class InventoryDbHelper extends SQLiteOpenHelper {
+
+    // DbHelper previous code
+
+    public Cursor readStock() {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] projection = {
+                StockContract.StockEntry._ID,
+                StockContract.StockEntry.COLUMN_NAME,
+                StockContract.StockEntry.COLUMN_PRICE
+        };
+        Cursor cursor = db.query(
+                StockContract.StockEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        return cursor;
+    }
+}
+```
+
+Second define a read method that reads only one item based on the ID and returns it:
+
+```
+public class InventoryDbHelper extends SQLiteOpenHelper {
+
+    // DbHelper previous code
+
+    public Cursor readItem(long itemId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] projection = {
+                StockContract.StockEntry._ID,
+                StockContract.StockEntry.COLUMN_NAME,
+                StockContract.StockEntry.COLUMN_PRICE
+        };
+        String selection = StockContract.StockEntry._ID + "=?";
+        String[] selectionArgs = new String[] { String.valueOf(itemId) };
+
+        Cursor cursor = db.query(
+                StockContract.StockEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+        return cursor;
     }
 }
 ```
