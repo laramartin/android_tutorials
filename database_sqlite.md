@@ -32,3 +32,30 @@ public class StockContract {
     }
 }
 ```
+
+## Create the database with the SQL Helper
+- Database versions start from 1
+
+
+```
+public class InventoryDbHelper extends SQLiteOpenHelper {
+
+    public final static String DB_NAME = "inventory.db";
+    public final static int DB_VERSION = 1;
+    public final static String LOG_TAG = InventoryDbHelper.class.getCanonicalName();
+
+    public InventoryDbHelper(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(StockContract.StockEntry.CREATE_TABLE_STOCK);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
+}
+```
