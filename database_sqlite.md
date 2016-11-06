@@ -39,7 +39,7 @@ public class StockContract {
 - CRUD: create, read, update and delete actions
 - Database versions start from 1
 
-1. Create
+### Create
 - Create a DbHelper class that extends SQLiteOpenHelper. In this example it is called `InventoryDbHelper`
 - Declare the database name and the version number
 - Create a constructor
@@ -109,7 +109,7 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
 }
 ```
 
-2. Read
+### Read
 - In `InventoryDbHelper` add the read method
 - It returns a cursor
 
