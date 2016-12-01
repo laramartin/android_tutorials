@@ -1,0 +1,6 @@
+- In presenter, `alt + enter` on the name of the class.
+- Testing library: JUnit4
+- Class name is name of the class + Test at the end
+- Generate: setUp/@Before
+- select the methods to test
+- Accept -> Choose Destination Directory: select the one in folder /test
