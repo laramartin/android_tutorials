@@ -8,3 +8,7 @@
 
 - [Ripple](https://github.com/laramartin/android_tutorials/blob/master/ripple.md)
 - [Vibration](https://github.com/laramartin/android_tutorials/blob/master/vibration.md)
+
+# Testing
+
+- [Unit Tests](https://github.com/laramartin/android_tutorials/blob/master/unit_tests.md)
