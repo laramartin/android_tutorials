@@ -4,14 +4,18 @@
 - Install SQLite https://sqlite.org/download.html
 
 ## Create a Contract class
-- To define the database schema
-- To declare the database name and version, tables and columns names
-- In this example, the contract class is called `StockContract`
 
+Contract class: 
+- Defines the database schema
+- Declares the database name and version, tables and columns names
+- Defines a inner clause for each table, and includes the columns for each of those tables
+- Since all the content is static, it makes sense to make the constructor private
+- In this example, the contract class is called `StockContract`
+- The `StockEntry` implements the interface BaseColumns, that includes a constant representing the primary key called `_ID`
 ```
 public class StockContract {
 
-    public StockContract() {
+    private StockContract() {
     }
 
     public static final class StockEntry implements BaseColumns {
