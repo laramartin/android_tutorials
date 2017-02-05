@@ -39,7 +39,8 @@ public class StockContract {
 ```
 
 ## Create the database with the SQL Helper
-- DB Helper generates CRUD statements
+- SQLiteOpenHelper creates the DB for the first time and updates it when the schema changes 
+- DB Helper generates CRUD statements. It access to DB contents
 - CRUD: create, read, update and delete actions
 - Database versions start from 1
 
