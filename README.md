@@ -7,8 +7,9 @@
 ## UX / UI tricks
 
 - [Ripple](https://github.com/laramartin/android_tutorials/blob/master/ripple.md)
+- [ToolBar](https://github.com/laramartin/android_tutorials/blob/master/toolbar.md)
 - [Vibration](https://github.com/laramartin/android_tutorials/blob/master/vibration.md)
 
-# Testing
+## Testing
 
 - [Unit Tests](https://github.com/laramartin/android_tutorials/blob/master/unit_tests.md)
